@@ -11,7 +11,8 @@ train_dir='madoka_magica_images/train'
 validation_dir='madoka_magica_images/validation'
 file_name='vgg16_madomagi_fine'
 
-base_model=VGG16(weights='imagenet',include_top=False,input_tensor=Input(shape=(224,224,3)))
+base_model=VGG16(weights='imagenet',include_top=False,
+                 input_tensor=Input(shape=(224,224,3)))
 
 #add new layers instead of FC networks
 x=base_model.output
@@ -24,7 +25,9 @@ model=Model(inputs=base_model.input,outputs=prediction)
 for layer in base_model.layers[:15]:
     layer.trainable=False
 
-model.compile(optimizer=SGD(lr=0.0001,momentum=0.9),loss='categorical_crossentropy',metrics=['accuracy'])
+model.compile(optimizer=SGD(lr=0.0001,momentum=0.9),
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
 
 model.summary()
 
